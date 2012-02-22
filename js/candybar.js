@@ -2,11 +2,27 @@
     var BuildModel = Backbone.Model.extend({});
 
     var Builds = Backbone.Collection.extend({
-	model: BuildModel
+	model: BuildModel,
+
+	sync: function(method, model){
+	    if (method == 'read') {
+		$.ajax({
+		    url: "data/static.json",
+		    dataType: "json",
+		    success: function(data){
+			_.each(data, function(build){
+			    console.log(build);
+			    model.add(build);
+			});
+		    },
+		    async: false
+		});
+	    }
+	}
     });
 
     var BuildsView = Backbone.View.extend({
-	template: _.template("<tr><td><%= number %></td><td><%= commit %></td><td><%= status %></td></tr>"),
+	template: _.template("<tr><td><%= number %></td><td><%= commit %></td><td><%= result %></td></tr>"),
 
 	initialize: function(){
 	    _.bindAll(this, 'render');
@@ -25,8 +41,7 @@
 
     $(function(){
 	var builds = new Builds();
-	builds.add({number: 37, commit: 51, status: 0});
-	builds.add({number: 34, commit: 35, status: 0});
+	builds.fetch();
 	var buildsView = new BuildsView({el: $("#builds"), model: builds});
     });
 })( jQuery );
