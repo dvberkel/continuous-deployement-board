@@ -6,16 +6,11 @@
 
 	sync: function(method, model){
 	    if (method == 'read') {
-		$.ajax({
-		    url: "data/static.json",
-		    dataType: "json",
-		    success: function(data){
-			_.each(data, function(build){
-			    console.log(build);
-			    model.add(build);
-			});
-		    },
-		    async: false
+		$.getJSON("http://travis-ci.org/dvberkel/ScoreCard/builds.json?callback=?", function(data){
+		    _.each(data, function(build){
+			model.add(build);
+		    });
+		    console.log("finished");
 		});
 	    }
 	}
@@ -26,6 +21,10 @@
 
 	initialize: function(){
 	    _.bindAll(this, 'render');
+
+	    this.model.bind("add",function(){
+		this.render();
+	    },this);
 
 	    this.render();
 	},
