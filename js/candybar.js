@@ -13,12 +13,17 @@
 	initialize: function(models, options) {
 	    options = options || {project: new ProjectModel};
 	    this.project = options.project;
+
+	    this.project.bind("change", function(){
+		this.fetch();
+	    }, this);
 	},
 
 	sync: function(method, model){
-	    var project = new ProjectModel();
+	    var collection = this;
 	    if (method == 'read') {
 		$.getJSON(this.template(this.project.toJSON()), function(data){
+		    collection.reset();
 		    _.each(data, function(build){
 			model.add(build);
 		    });
