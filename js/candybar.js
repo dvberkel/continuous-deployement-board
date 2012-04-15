@@ -7,16 +7,21 @@
 
     var Builds = Backbone.Collection.extend({
 	template: _.template("http://travis-ci.org/<%= owner %>/<%= repository %>/builds.json?callback=?"),
+	project: new ProjectModel(),
 	model: BuildModel,
+
+	initialize: function(models, options) {
+	    options = options || {project: new ProjectModel};
+	    this.project = options.project;
+	},
 
 	sync: function(method, model){
 	    var project = new ProjectModel();
 	    if (method == 'read') {
-		$.getJSON(this.template(project.toJSON()), function(data){
+		$.getJSON(this.template(this.project.toJSON()), function(data){
 		    _.each(data, function(build){
 			model.add(build);
 		    });
-		    console.log("finished");
 		});
 	    }
 	}
@@ -45,7 +50,8 @@
     });
 
     $(function(){
-	var builds = new Builds();
+	var projectModel = new ProjectModel({owner: "dvberkel", repository: "ScoreCard"});
+	var builds = new Builds([],{project: projectModel});
 	builds.fetch();
 	var buildsView = new BuildsView({el: $("#builds"), model: builds});
     });
