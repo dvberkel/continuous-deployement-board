@@ -20,11 +20,15 @@
 	},
 
 	sync: function(method, model){
-	    var collection = this;
+	    var collection = this, project = collection.project;
 	    if (method == 'read') {
 		$.getJSON(this.template(this.project.toJSON()), function(data){
 		    collection.reset();
+		    var repository = project.get('repository');
+		    var owner = project.get('owner');
 		    _.each(data, function(build){
+			build.repository = repository;
+			build.owner = owner;
 			model.add(build);
 		    });
 		});
@@ -33,7 +37,7 @@
     });
 
     var BuildsView = Backbone.View.extend({
-	template: _.template("<tr><td><%= number %></td><td><%= commit %></td><td><%= result %></td></tr>"),
+	template: _.template("<tr><td><a href='http://travis-ci.org/#!/<%= owner %>/<%= repository %>/builds/<%= id %>'><%= number %></a></td><td><a href='https://github.com/<%= owner %>/<%= repository %>/commit/<%= commit %>'><%= commit %></a></td><td><%= result %></td></tr>"),
 
 	initialize: function(){
 	    _.bindAll(this, 'render');
