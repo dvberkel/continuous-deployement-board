@@ -59,5 +59,9 @@
 	var builds = new Builds([],{project: projectModel});
 	builds.fetch();
 	var buildsView = new BuildsView({el: $("#builds"), model: builds});
+	$("#repository").change(function(){
+	    var repository = $(this).val();
+	    projectModel.set({repository: $(this).val()});
+	});
     });
 })( jQuery );
