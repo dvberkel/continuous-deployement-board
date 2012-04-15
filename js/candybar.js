@@ -2,11 +2,12 @@
     var BuildModel = Backbone.Model.extend({});
 
     var Builds = Backbone.Collection.extend({
+	template: _.template("http://travis-ci.org/<%= owner %>/<%= repository %>/builds.json?callback=?"),
 	model: BuildModel,
 
 	sync: function(method, model){
 	    if (method == 'read') {
-		$.getJSON("http://travis-ci.org/dvberkel/ScoreCard/builds.json?callback=?", function(data){
+		$.getJSON(this.template({owner: "dvberkel", repository: "ScoreCard"}), function(data){
 		    _.each(data, function(build){
 			model.add(build);
 		    });
