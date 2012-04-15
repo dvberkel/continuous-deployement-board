@@ -1,4 +1,8 @@
 (function($, undefined){
+    var ProjectModel = Backbone.Model.extend({
+	defaults: {owner: "travis-ci", repository: "travis-ci"}
+    });
+
     var BuildModel = Backbone.Model.extend({});
 
     var Builds = Backbone.Collection.extend({
@@ -6,8 +10,9 @@
 	model: BuildModel,
 
 	sync: function(method, model){
+	    var project = new ProjectModel();
 	    if (method == 'read') {
-		$.getJSON(this.template({owner: "dvberkel", repository: "ScoreCard"}), function(data){
+		$.getJSON(this.template(project.toJSON()), function(data){
 		    _.each(data, function(build){
 			model.add(build);
 		    });
