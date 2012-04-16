@@ -9,5 +9,5 @@ technologies. In particular we are attempting to integerate the
 following tools
 
 * [GitHub](https://github.com/ "Homepage of GitHub")
-* [Travis CI](travis-ci.org/ "Homepage of Travis Continous Integration")
-* [Heroku](www.heroku.com/ "Homepage of Heroku")
+* [Travis CI](http://travis-ci.org/ "Homepage of Travis Continous Integration")
+* [Heroku](https://www.heroku.com/ "Homepage of Heroku")
