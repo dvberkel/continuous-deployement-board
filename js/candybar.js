@@ -37,7 +37,7 @@
     });
 
     var BuildsView = Backbone.View.extend({
-	template: _.template("<tr><td><a href='http://travis-ci.org/#!/<%= owner %>/<%= repository %>/builds/<%= id %>'><%= number %></a></td><td><a href='https://github.com/<%= owner %>/<%= repository %>/commit/<%= commit %>'><%= commit %></a></td><td><%= result %></td></tr>"),
+	template: _.template("<tr class='status-<%= result %>'><td><a href='http://travis-ci.org/#!/<%= owner %>/<%= repository %>/builds/<%= id %>'><%= number %></a></td><td><a href='https://github.com/<%= owner %>/<%= repository %>/commit/<%= commit %>'><%= commit %></a></td></tr>"),
 
 	initialize: function(){
 	    _.bindAll(this, 'render');
