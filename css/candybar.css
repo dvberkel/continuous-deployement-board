@@ -17,3 +17,11 @@ body {
 #builds tr:nth-of-type(even) {
     background-color: #DB4D4D;
 }
+
+a {
+    color: #005580;
+}
+
+a:hover {
+    color: #004466;
+}
