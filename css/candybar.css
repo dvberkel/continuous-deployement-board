@@ -2,18 +2,18 @@ body {
     padding-top: 50px;
 }
 
-.status-0:nth-of-type(odd) {
+#builds tr.status-0:nth-of-type(odd) {
     background-color: #33CC33;
 }
 
-.status-0:nth-of-type(even) {
+#builds tr.status-0:nth-of-type(even) {
     background-color: #70DB70;
 }
 
-.status-1:nth-of-type(odd) {
+#builds tr:nth-of-type(odd) {
     background-color: #CC0000;
 }
 
-.status-1:nth-of-type(even) {
+#builds tr:nth-of-type(even) {
     background-color: #DB4D4D;
 }
